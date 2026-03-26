@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Finder | Find your dream job</title>
+    <meta name="description" content="Local Job Finder - A modern platform to find jobs in your area.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .disclaimer-banner {
+            background: #ef4444 !important;
+            border: 3px solid #b91c1c !important;
+            border-radius: 12px !important;
+            padding: 1.5rem 2rem !important;
+            margin: 1rem auto 3rem auto !important;
+            color: #ffffff !important;
+            font-size: 1.3rem !important;
+            font-weight: 800 !important;
+            line-height: 1.4 !important;
+            box-shadow: 0 10px 25px -5px rgba(239, 68, 68, 0.5) !important;
+            text-align: center !important;
+            max-width: 1000px !important;
+            display: block !important;
+            position: relative;
+            z-index: 100;
+        }
+        .disclaimer-banner p { margin: 0 !important; }
+        .disclaimer-banner strong { 
+            color: #fff !important; 
+            text-decoration: underline !important;
+            font-size: 1.4rem !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Local Job Finder</h1>
+            <p>Connecting talent with opportunities in your city.</p>
+        </header>
+
+
+        <div class="disclaimer-banner">
+            <p>⚠️ <strong>গুরুত্বপূর্ণ সতর্কতা:</strong> যাচাই না করে কোনো চাকরির জন্য টাকা প্রদান করবেন না। আমাদের প্ল্যাটফর্ম কোনো ফি নেয় না। সন্দেহজনক কিছু হলে সাথে সাথে রিপোর্ট করুন।</p>
+        </div>
+
+        <main class="jobs-grid">
+            {% if jobs %}
+                {% for job in jobs %}
+                    <article class="job-card">
+                        <div class="job-header">
+                            <h2 class="job-title">{{ job.title }}</h2>
+                            <p class="job-company">{{ job.company }}</p>
+                            <div class="job-meta">
+                                <span class="meta-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                                        <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"></path>
+                                    </svg>
+                                    {{ job.location }}
+                                </span>
+                                <span class="meta-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                                        <path d="M12 7l0 5l3 3"></path>
+                                    </svg>
+                                    {{ job.salary }}
+                                </span>
+                            </div>
+                            <div class="job-description">
+                                {{ job.description|truncatewords:40 }}
+                            </div>
+                        </div>
+                        <div class="job-footer">
+                            <time class="job-date" datetime="{{ job.posted_date|date:'Y-m-d' }}">
+                                Posted: {{ job.posted_date|date:"F d, Y" }}
+                            </time>
+                            <div class="job-actions">
+                                {% if job.document %}
+                                    <a href="{{ job.document.url }}" class="download-btn" download title="Download Job Details">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path>
+                                            <polyline points="7 10 12 15 17 10"></polyline>
+                                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                                        </svg>
+                                    </a>
+                                {% endif %}
+                                <a href="#" class="view-btn">Apply Now</a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            {% else %}
+                <div class="no-jobs">
+                    <h2>No jobs available</h2>
+                </div>
+            {% endif %}
+        </main>
+    </div>
+</body>
+</html>
