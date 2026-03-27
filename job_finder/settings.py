@@ -27,8 +27,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-qwv_sqpk2gj))i*in0!pg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = []
+ALLOWED_HOSTS = ['rahulbir92.pythonanywhere.com', 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://rahulbir92.pythonanywhere.com']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
